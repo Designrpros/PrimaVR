@@ -15,10 +15,10 @@ const PageWrapper = styled.div`
   min-height: 100vh;
   background-color: #4b6079;
   padding-top: 60px;
-  padding-bottom: 2rem; /* Padding at the bottom */
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures content fills the height */
+  justify-content: space-between;
 `;
 
 const FullScreenIntro = styled.div`
@@ -204,14 +204,15 @@ const Paragraph = styled.p`
 const Home: React.FC = () => {
   const form = useRef<HTMLFormElement>(null);
 
-  // Sample 360 video data for the gallery with Norwegian titles and descriptions
-  const galleryVideos = [
+  // Sample 360 video data
+  const galleryVideos360 = [
     {
       title: '360° Nordlys i Norge',
       thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
       description: 'Opplev det magiske nordlyset i en 360-graders visning.',
       category: 'Natur',
       url: 'https://youtu.be/ZZyBG6UsvoQ',
+      type: '360',
     },
     {
       title: '360° Undervannskorallrev',
@@ -219,6 +220,7 @@ const Home: React.FC = () => {
       description: 'Dykk ned i en levende undervannsverden med korallrev.',
       category: 'Natur',
       url: 'https://youtu.be/-xNN-bJQ4vI',
+      type: '360',
     },
     {
       title: '360° Vikingskipreise',
@@ -226,6 +228,7 @@ const Home: React.FC = () => {
       description: 'Seil med vikinger på en historisk 360-graders reise.',
       category: 'Historie',
       url: 'https://youtu.be/Wmdkhmuh-zU',
+      type: '360',
     },
     {
       title: '360° Klassisk Konsert',
@@ -233,6 +236,43 @@ const Home: React.FC = () => {
       description: 'Nyt en live klassisk musikkopptreden i 360 grader.',
       category: 'Underholdning',
       url: 'https://youtu.be/hEdzv7D4CbQ',
+      type: '360',
+    },
+  ];
+
+  // Sample 180 video data
+  const galleryVideos180 = [
+    {
+      title: '180° Nordlys i Norge',
+      thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
+      description: 'Opplev det magiske nordlyset i en 180-graders visning.',
+      category: 'Natur',
+      url: 'https://youtu.be/ZZyBG6UsvoQ',
+      type: '180',
+    },
+    {
+      title: '180° Undervannskorallrev',
+      thumbnail: 'https://img.youtube.com/vi/-xNN-bJQ4vI/hqdefault.jpg',
+      description: 'Dykk ned i en levende undervannsverden med korallrev i 180 grader.',
+      category: 'Natur',
+      url: 'https://youtu.be/-xNN-bJQ4vI',
+      type: '180',
+    },
+    {
+      title: '180° Vikingskipreise',
+      thumbnail: 'https://img.youtube.com/vi/Wmdkhmuh-zU/hqdefault.jpg',
+      description: 'Seil med vikinger på en historisk 180-graders reise.',
+      category: 'Historie',
+      url: 'https://youtu.be/Wmdkhmuh-zU',
+      type: '180',
+    },
+    {
+      title: '180° Klassisk Konsert',
+      thumbnail: 'https://img.youtube.com/vi/hEdzv7D4CbQ/hqdefault.jpg',
+      description: 'Nyt en live klassisk musikkopptreden i 180 grader.',
+      category: 'Underholdning',
+      url: 'https://youtu.be/hEdzv7D4CbQ',
+      type: '180',
     },
   ];
 
@@ -279,12 +319,33 @@ const Home: React.FC = () => {
           </List>
         </ServicesSection>
 
+        {/* 360 Videos Section */}
         <GallerySection>
           <GalleryTitle>Utforsk Vårt 360-Videoinnhold</GalleryTitle>
           <GalleryGrid>
-            {galleryVideos.map((video, index) => (
+            {galleryVideos360.map((video, index) => (
               <GalleryItem key={index}>
-                <GalleryLink href="/videobibliotek">
+                <GalleryLink href="/360-videos">
+                  <GalleryImage
+                    src={video.thumbnail}
+                    alt={video.title}
+                    width={250}
+                    height={200}
+                  />
+                  <GalleryCaption>{video.title}</GalleryCaption>
+                </GalleryLink>
+              </GalleryItem>
+            ))}
+          </GalleryGrid>
+        </GallerySection>
+
+        {/* New 180 Videos Section */}
+        <GallerySection>
+          <GalleryTitle>Utforsk Vårt 180-Videoinnhold</GalleryTitle>
+          <GalleryGrid>
+            {galleryVideos180.map((video, index) => (
+              <GalleryItem key={index}>
+                <GalleryLink href="/180-videos">
                   <GalleryImage
                     src={video.thumbnail}
                     alt={video.title}
