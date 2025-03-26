@@ -1,10 +1,9 @@
-"use client";
+"use client"; // Add this at the top
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +17,6 @@ const PageWrapper = styled.div`
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 const FullScreenIntro = styled.div`
@@ -26,7 +24,7 @@ const FullScreenIntro = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 95vh; /* Changed to min-height to avoid overflow issues */
+  min-height: 95vh;
   background-color: #4b6079;
   padding: 2rem;
   color: #fff;
@@ -71,7 +69,7 @@ const ScrollArrow = styled.div`
 const AnimatedLogo = styled(motion(Image))`
   width: 1000px;
   height: auto;
-  max-width: 100%; /* Prevent overflow on smaller screens */
+  max-width: 100%;
 
   @media (max-width: 768px) {
     width: 200px;
@@ -202,7 +200,7 @@ const Paragraph = styled.p`
   }
 `;
 
-const Home: React.FC = () => {
+export default function Home() {
   const form = useRef<HTMLFormElement>(null);
 
   // Sample 360 video data
@@ -277,29 +275,21 @@ const Home: React.FC = () => {
     },
   ];
 
-  // Ensure client-side rendering matches server-side
-  useEffect(() => {
-    // Force re-render or hydration fix if needed
-    // This is a workaround for potential hydration mismatches
-  }, []);
-
   return (
     <>
-      <Head>
-        <title>Tjenestedesign og PRIMA - AKTHE</title>
-        <meta name="description" content="Tjenestedesign og PRIMA-aktiviteter fra AKTHE." />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-329ZE249M1"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-329ZE249M1');
-            `,
-          }}
-        />
-      </Head>
+      <title>Tjenestedesign og PRIMA - AKTHE</title>
+      <meta name="description" content="Tjenestedesign og PRIMA-aktiviteter fra AKTHE." />
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-329ZE249M1"></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-329ZE249M1');
+          `,
+        }}
+      />
       <PageWrapper>
         <FullScreenIntro>
           <Title>PRIMA</Title>
@@ -309,7 +299,7 @@ const Home: React.FC = () => {
             alt="VR Logo"
             width={1000}
             height={400}
-            priority // Preload to avoid FOUC
+            priority
           />
           <ScrollArrow>
             <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />
@@ -344,7 +334,7 @@ const Home: React.FC = () => {
                     alt={video.title}
                     width={250}
                     height={200}
-                    priority // Preload to avoid FOUC
+                    priority
                   />
                   <GalleryCaption>{video.title}</GalleryCaption>
                 </GalleryLink>
@@ -365,7 +355,7 @@ const Home: React.FC = () => {
                     alt={video.title}
                     width={250}
                     height={200}
-                    priority // Preload to avoid FOUC
+                    priority
                   />
                   <GalleryCaption>{video.title}</GalleryCaption>
                 </GalleryLink>
@@ -376,6 +366,4 @@ const Home: React.FC = () => {
       </PageWrapper>
     </>
   );
-};
-
-export default Home;
+}
