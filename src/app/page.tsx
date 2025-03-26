@@ -1,14 +1,12 @@
-"use client"; // Add this at the top
+"use client"
 
-import { useRef } from 'react';
+// app/page.tsx
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import HeroSection from './HeroSection';
 
-// Styled Components
+// Styled Components (same as before)
 const PageWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -17,63 +15,6 @@ const PageWrapper = styled.div`
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
-`;
-
-const FullScreenIntro = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 95vh;
-  background-color: #4b6079;
-  padding: 2rem;
-  color: #fff;
-`;
-
-const Title = styled.h1`
-  font-size: calc(2rem + 2vw);
-  text-align: center;
-  color: #fff;
-`;
-
-const Punchline = styled.h2`
-  font-size: calc(1rem + 1vw);
-  text-align: center;
-  color: #fff;
-  margin: 0.5rem 0;
-
-  @media (max-width: 768px) {
-    font-size: calc(0.8rem + 1vw);
-  }
-`;
-
-const ScrollArrow = styled.div`
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-
-  .chevron-icon {
-    font-size: 24px;
-    color: #fff;
-    animation: bounce 2s infinite;
-  }
-
-  @keyframes bounce {
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-`;
-
-const AnimatedLogo = styled(motion(Image))`
-  width: 1000px;
-  height: auto;
-  max-width: 100%;
-
-  @media (max-width: 768px) {
-    width: 200px;
-  }
 `;
 
 const GallerySection = styled.div`
@@ -200,112 +141,83 @@ const Paragraph = styled.p`
   }
 `;
 
+// Sample 360 video data
+const galleryVideos360 = [
+  {
+    title: '360° Nordlys i Norge',
+    thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
+    description: 'Opplev det magiske nordlyset i en 360-graders visning.',
+    category: 'Natur',
+    url: 'https://youtu.be/ZZyBG6UsvoQ',
+    type: '360',
+  },
+  {
+    title: '360° Undervannskorallrev',
+    thumbnail: 'https://img.youtube.com/vi/-xNN-bJQ4vI/hqdefault.jpg',
+    description: 'Dykk ned i en levende undervannsverden med korallrev.',
+    category: 'Natur',
+    url: 'https://youtu.be/-xNN-bJQ4vI',
+    type: '360',
+  },
+  {
+    title: '360° Vikingskipreise',
+    thumbnail: 'https://img.youtube.com/vi/Wmdkhmuh-zU/hqdefault.jpg',
+    description: 'Seil med vikinger på en historisk 360-graders reise.',
+    category: 'Historie',
+    url: 'https://youtu.be/Wmdkhmuh-zU',
+    type: '360',
+  },
+  {
+    title: '360° Klassisk Konsert',
+    thumbnail: 'https://img.youtube.com/vi/hEdzv7D4CbQ/hqdefault.jpg',
+    description: 'Nyt en live klassisk musikkopptreden i 360 grader.',
+    category: 'Underholdning',
+    url: 'https://youtu.be/hEdzv7D4CbQ',
+    type: '360',
+  },
+];
+
+// Sample 180 video data
+const galleryVideos180 = [
+  {
+    title: '180° Nordlys i Norge',
+    thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
+    description: 'Opplev det magiske nordlyset i en 180-graders visning.',
+    category: 'Natur',
+    url: 'https://youtu.be/ZZyBG6UsvoQ',
+    type: '180',
+  },
+  {
+    title: '180° Undervannskorallrev',
+    thumbnail: 'https://img.youtube.com/vi/-xNN-bJQ4vI/hqdefault.jpg',
+    description: 'Dykk ned i en levende undervannsverden med korallrev i 180 grader.',
+    category: 'Natur',
+    url: 'https://youtu.be/-xNN-bJQ4vI',
+    type: '180',
+  },
+  {
+    title: '180° Vikingskipreise',
+    thumbnail: 'https://img.youtube.com/vi/Wmdkhmuh-zU/hqdefault.jpg',
+    description: 'Seil med vikinger på en historisk 180-graders reise.',
+    category: 'Historie',
+    url: 'https://youtu.be/Wmdkhmuh-zU',
+    type: '180',
+  },
+  {
+    title: '180° Klassisk Konsert',
+    thumbnail: 'https://img.youtube.com/vi/hEdzv7D4CbQ/hqdefault.jpg',
+    description: 'Nyt en live klassisk musikkopptreden i 180 grader.',
+    category: 'Underholdning',
+    url: 'https://youtu.be/hEdzv7D4CbQ',
+    type: '180',
+  },
+];
+
 export default function Home() {
-  const form = useRef<HTMLFormElement>(null);
-
-  // Sample 360 video data
-  const galleryVideos360 = [
-    {
-      title: '360° Nordlys i Norge',
-      thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
-      description: 'Opplev det magiske nordlyset i en 360-graders visning.',
-      category: 'Natur',
-      url: 'https://youtu.be/ZZyBG6UsvoQ',
-      type: '360',
-    },
-    {
-      title: '360° Undervannskorallrev',
-      thumbnail: 'https://img.youtube.com/vi/-xNN-bJQ4vI/hqdefault.jpg',
-      description: 'Dykk ned i en levende undervannsverden med korallrev.',
-      category: 'Natur',
-      url: 'https://youtu.be/-xNN-bJQ4vI',
-      type: '360',
-    },
-    {
-      title: '360° Vikingskipreise',
-      thumbnail: 'https://img.youtube.com/vi/Wmdkhmuh-zU/hqdefault.jpg',
-      description: 'Seil med vikinger på en historisk 360-graders reise.',
-      category: 'Historie',
-      url: 'https://youtu.be/Wmdkhmuh-zU',
-      type: '360',
-    },
-    {
-      title: '360° Klassisk Konsert',
-      thumbnail: 'https://img.youtube.com/vi/hEdzv7D4CbQ/hqdefault.jpg',
-      description: 'Nyt en live klassisk musikkopptreden i 360 grader.',
-      category: 'Underholdning',
-      url: 'https://youtu.be/hEdzv7D4CbQ',
-      type: '360',
-    },
-  ];
-
-  // Sample 180 video data
-  const galleryVideos180 = [
-    {
-      title: '180° Nordlys i Norge',
-      thumbnail: 'https://img.youtube.com/vi/ZZyBG6UsvoQ/hqdefault.jpg',
-      description: 'Opplev det magiske nordlyset i en 180-graders visning.',
-      category: 'Natur',
-      url: 'https://youtu.be/ZZyBG6UsvoQ',
-      type: '180',
-    },
-    {
-      title: '180° Undervannskorallrev',
-      thumbnail: 'https://img.youtube.com/vi/-xNN-bJQ4vI/hqdefault.jpg',
-      description: 'Dykk ned i en levende undervannsverden med korallrev i 180 grader.',
-      category: 'Natur',
-      url: 'https://youtu.be/-xNN-bJQ4vI',
-      type: '180',
-    },
-    {
-      title: '180° Vikingskipreise',
-      thumbnail: 'https://img.youtube.com/vi/Wmdkhmuh-zU/hqdefault.jpg',
-      description: 'Seil med vikinger på en historisk 180-graders reise.',
-      category: 'Historie',
-      url: 'https://youtu.be/Wmdkhmuh-zU',
-      type: '180',
-    },
-    {
-      title: '180° Klassisk Konsert',
-      thumbnail: 'https://img.youtube.com/vi/hEdzv7D4CbQ/hqdefault.jpg',
-      description: 'Nyt en live klassisk musikkopptreden i 180 grader.',
-      category: 'Underholdning',
-      url: 'https://youtu.be/hEdzv7D4CbQ',
-      type: '180',
-    },
-  ];
-
   return (
     <>
-      <title>Tjenestedesign og PRIMA - AKTHE</title>
-      <meta name="description" content="Tjenestedesign og PRIMA-aktiviteter fra AKTHE." />
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-329ZE249M1"></script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-329ZE249M1');
-          `,
-        }}
-      />
       <PageWrapper>
-        <FullScreenIntro>
-          <Title>PRIMA</Title>
-          <Punchline>Digitale Verktøy og Opplevelser for Eldre</Punchline>
-          <AnimatedLogo
-            src="/Images/VR.png"
-            alt="VR Logo"
-            width={1000}
-            height={400}
-            priority
-          />
-          <ScrollArrow>
-            <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />
-          </ScrollArrow>
-        </FullScreenIntro>
-
+        <HeroSection />
         <ServicesSection>
           <Heading>PRIMA</Heading>
           <Paragraph>Digitale Verktøy og Opplevelser for Eldre</Paragraph>
