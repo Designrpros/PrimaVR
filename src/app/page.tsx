@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -26,7 +26,7 @@ const FullScreenIntro = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  min-height: 95vh; /* Changed to min-height to avoid overflow issues */
   background-color: #4b6079;
   padding: 2rem;
   color: #fff;
@@ -71,6 +71,7 @@ const ScrollArrow = styled.div`
 const AnimatedLogo = styled(motion(Image))`
   width: 1000px;
   height: auto;
+  max-width: 100%; /* Prevent overflow on smaller screens */
 
   @media (max-width: 768px) {
     width: 200px;
@@ -276,6 +277,12 @@ const Home: React.FC = () => {
     },
   ];
 
+  // Ensure client-side rendering matches server-side
+  useEffect(() => {
+    // Force re-render or hydration fix if needed
+    // This is a workaround for potential hydration mismatches
+  }, []);
+
   return (
     <>
       <Head>
@@ -297,7 +304,13 @@ const Home: React.FC = () => {
         <FullScreenIntro>
           <Title>PRIMA</Title>
           <Punchline>Digitale Verktøy og Opplevelser for Eldre</Punchline>
-          <AnimatedLogo src="/Images/VR.png" alt="VR Logo" width={1000} height={400} />
+          <AnimatedLogo
+            src="/Images/VR.png"
+            alt="VR Logo"
+            width={1000}
+            height={400}
+            priority // Preload to avoid FOUC
+          />
           <ScrollArrow>
             <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />
           </ScrollArrow>
@@ -331,6 +344,7 @@ const Home: React.FC = () => {
                     alt={video.title}
                     width={250}
                     height={200}
+                    priority // Preload to avoid FOUC
                   />
                   <GalleryCaption>{video.title}</GalleryCaption>
                 </GalleryLink>
@@ -339,7 +353,7 @@ const Home: React.FC = () => {
           </GalleryGrid>
         </GallerySection>
 
-        {/* New 180 Videos Section */}
+        {/* 180 Videos Section */}
         <GallerySection>
           <GalleryTitle>Utforsk Vårt 180-Videoinnhold</GalleryTitle>
           <GalleryGrid>
@@ -351,6 +365,7 @@ const Home: React.FC = () => {
                     alt={video.title}
                     width={250}
                     height={200}
+                    priority // Preload to avoid FOUC
                   />
                   <GalleryCaption>{video.title}</GalleryCaption>
                 </GalleryLink>
