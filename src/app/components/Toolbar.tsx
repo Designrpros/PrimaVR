@@ -1,3 +1,4 @@
+// app/components/Toolbar.tsx
 "use client";
 
 import { useState, useCallback } from 'react';
@@ -10,7 +11,7 @@ const ToolbarStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 2rem;
-  position: sticky; /* Should stick to top when scrolling */
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -68,7 +69,7 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const TabButton = styled.button<{ active: boolean }>`
+const TabButton = styled.button<{ $active: boolean }>`
   position: relative;
   background: none;
   border: none;
@@ -76,7 +77,7 @@ const TabButton = styled.button<{ active: boolean }>`
   font-size: 0.95rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: ${({ active }) => (active ? '#fff' : '#333')};
+  color: ${({ $active }) => ($active ? '#fff' : '#333')};
   cursor: pointer;
   transition: color 0.2s ease;
   white-space: nowrap;
@@ -89,7 +90,7 @@ const TabButton = styled.button<{ active: boolean }>`
     width: 100%;
     height: 2px;
     background: #fff;
-    transform: scaleX(${({ active }) => (active ? 1 : 0)});
+    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
     transform-origin: bottom center;
     transition: transform 0.2s ease-out;
   }
@@ -150,7 +151,7 @@ const Toolbar: React.FC = () => {
         {navItems.map((item) => (
           <TabButton
             key={item.id}
-            active={activeTab === item.id}
+            $active={activeTab === item.id} // Use $active to avoid DOM prop
             onClick={() => handleTabClick(item.id)}
           >
             <StyledLink href={item.href}>{item.label}</StyledLink>
