@@ -1,0 +1,139 @@
+/* app/components/Toolbar.css */
+.toolbar-styled {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  .toolbar-nav {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding: 0.25rem 0;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+  }
+  
+  .toolbar-nav::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .toolbar-nav {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  @media (max-width: 1024px) {
+    .toolbar-styled {
+      padding: 0.5rem 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .toolbar-styled {
+      padding: 0.5rem 1rem;
+    }
+    .toolbar-nav {
+      gap: 1rem;
+    }
+  }
+  
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 2rem;
+  }
+  
+  .logo-image {
+    height: 32px;
+    width: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-image:hover {
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 768px) {
+    .logo-wrapper {
+      margin-right: 1.5rem;
+    }
+    .logo-image {
+      height: 28px;
+    }
+  }
+  
+  .tab-button {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .tab-button.active {
+    color: #fff;
+  }
+  
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: bottom center;
+    transition: transform 0.2s ease-out;
+  }
+  
+  .tab-button.active::after {
+    transform: scaleX(1);
+  }
+  
+  .tab-button:hover {
+    color: #fff;
+  }
+  
+  .tab-button:hover::after {
+    transform: scaleX(1);
+  }
+  
+  @media (max-width: 768px) {
+    .tab-button {
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .tab-button {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .styled-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
